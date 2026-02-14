@@ -1,4 +1,4 @@
-package com.example.smsapp.ui
+package com.example.smsapp.ui.inbox.v1
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -51,7 +51,7 @@ fun InboxScreenV1(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Inbox") },
+                title = { Text("Inbox V1") },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
                         Icon(

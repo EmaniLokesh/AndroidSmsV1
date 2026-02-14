@@ -12,7 +12,8 @@ import com.example.smsapp.viewmodel.SmsViewModel
 @Composable
 fun SmsScreen(
     viewModel: SmsViewModel = viewModel(),
-    goToInbox: () -> Unit
+    goToInbox: () -> Unit,
+    goToInboxV2: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -79,6 +80,15 @@ fun SmsScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Open Inbox")
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            OutlinedButton(
+                onClick = goToInboxV2,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Open Inbox V2")
             }
         }
     }

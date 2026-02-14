@@ -1,4 +1,4 @@
-package com.example.smsapp.ui.inbox.v1
+package com.example.smsapp.ui.inbox.v2
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -16,23 +16,25 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.smsapp.data.SmsMessage
 import com.example.smsapp.viewmodel.InboxViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InboxScreenV1(
+fun InboxScreenV2(
     viewModel: InboxViewModel = viewModel(),
     goBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val messages by viewModel.messages.collectAsState()
+
+    var groupedMessages by remember { mutableStateOf<Map<String, List<SmsMessage>>>(emptyMap()) }
 
     val permissionLauncher =
         rememberLauncherForActivityResult(
             contract = ActivityResultContracts.RequestPermission()
         ) { isGranted ->
             if (isGranted) {
-                viewModel.loadMessages()
+                groupedMessages = viewModel.getGroupedMessages()
             }
         }
 
@@ -42,7 +44,7 @@ fun InboxScreenV1(
                 Manifest.permission.READ_SMS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            viewModel.loadMessages()
+            groupedMessages = viewModel.getGroupedMessages()
         } else {
             permissionLauncher.launch(Manifest.permission.READ_SMS)
         }
@@ -51,7 +53,7 @@ fun InboxScreenV1(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Inbox V1") },
+                title = { Text("Inbox V2") },
                 navigationIcon = {
                     IconButton(onClick = goBack) {
                         Icon(
@@ -70,7 +72,10 @@ fun InboxScreenV1(
                 .fillMaxSize()
         ) {
 
-            items(messages) { sms ->
+            items(groupedMessages.entries.toList()) { entry  ->
+                val address = entry.key
+                val messages = entry.value
+                val latestMessage = messages.first()
 
                 Card(
                     modifier = Modifier
@@ -80,25 +85,27 @@ fun InboxScreenV1(
                     Column(modifier = Modifier.padding(12.dp)) {
 
                         Text(
-                            text = sms.address,
+                            text = address,
                             style = MaterialTheme.typography.titleMedium
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
 
                         Text(
-                            text = sms.body,
+                            text = "${messages.size} messages",
                             style = MaterialTheme.typography.bodyMedium
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
 
                         Text(
-                            text = sms.date,
-                            style = MaterialTheme.typography.labelSmall
+                            text = latestMessage.body,
+                            style = MaterialTheme.typography.labelSmall,
+                            maxLines = 1
                         )
                     }
                 }
+
             }
         }
     }

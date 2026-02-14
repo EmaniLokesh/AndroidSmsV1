@@ -17,4 +17,8 @@ class InboxViewModel(application: Application) : AndroidViewModel(application) {
     fun loadMessages() {
         _messages.value = repository.getInboxMessages()
     }
+
+    fun getGroupedMessages(): Map<String, List<SmsMessage>> {
+        return repository.getGroupedMessages()
+    }
 }

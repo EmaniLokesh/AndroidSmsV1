@@ -48,4 +48,6 @@ class SmsReaderRepository(private val context: Context) {
 
         return smsList
     }
+
+    fun getGroupedMessages() = getInboxMessages().groupBy { it.address }
 }
