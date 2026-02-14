@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.smsapp.data.SmsMessage
+import com.example.smsapp.ui.components.AppTopBar
 import com.example.smsapp.viewmodel.InboxViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,13 +54,10 @@ fun InboxScreenV2(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Inbox V2") },
-                navigationIcon = {
-                    IconButton(onClick = openDrawer) {
-                        Icon(Icons.Default.Menu, contentDescription = "Menu")
-                    }
-                }
+            AppTopBar(
+                title = "Inbox V2",
+                showBack = false,
+                onMenuClick = openDrawer
             )
         }
     ) { padding ->

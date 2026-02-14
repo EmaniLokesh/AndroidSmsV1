@@ -115,3 +115,7 @@ topBar added
 1.1.5
 
 topBar perfect for all
+
+1.1.6
+
+topBar nice colours

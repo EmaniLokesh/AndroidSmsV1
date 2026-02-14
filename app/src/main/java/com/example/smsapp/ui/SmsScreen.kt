@@ -8,27 +8,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.smsapp.ui.components.AppTopBar
 import com.example.smsapp.viewmodel.SmsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SmsScreen(
     viewModel: SmsViewModel = viewModel(),
-    goToInbox: () -> Unit,
-    goToInboxV2: () -> Unit,
     openDrawer: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Material 3 SMS App") },
-                navigationIcon = {
-                    IconButton(onClick = openDrawer) {
-                        Icon(Icons.Default.Menu, contentDescription = "Menu")
-                    }
-                }
+            AppTopBar(
+                title = "Material 3 SMS App",
+                showBack = false,
+                onMenuClick = openDrawer
             )
         }
     ) { padding ->
@@ -81,24 +77,6 @@ fun SmsScreen(
                     text = it,
                     color = MaterialTheme.colorScheme.primary
                 )
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            OutlinedButton(
-                onClick = goToInbox,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Open Inbox")
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            OutlinedButton(
-                onClick = goToInboxV2,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Open Inbox V2")
             }
         }
     }

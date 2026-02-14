@@ -91,8 +91,6 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 composable("send") {
                                     SmsScreen(
-                                        goToInbox = { navController.navigate("inbox") },
-                                        goToInboxV2 = { navController.navigate("inbox_v2") },
                                         openDrawer = {
                                             scope.launch { drawerState.open() }
                                         }
