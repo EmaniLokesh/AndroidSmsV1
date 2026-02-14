@@ -135,3 +135,7 @@ now working on mainactivity modular
 1.1.10
 
 mainactivity is now small
+
+1.1.11
+
+side nav perfect dynamic

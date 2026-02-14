@@ -23,17 +23,11 @@ fun AppDrawer(
     scope: CoroutineScope,
     content: @Composable () -> Unit
 ) {
-    var inboxExpanded by remember { mutableStateOf(false) }
+    var expandedSection by remember { mutableStateOf<String?>(null) }
 
     val currentRoute =
         navController.currentBackStackEntryAsState().value
             ?.destination?.route ?: ""
-
-    LaunchedEffect(currentRoute) {
-        if (currentRoute == AppScreen.Send.route) {
-            inboxExpanded = false
-        }
-    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -70,54 +64,41 @@ fun AppDrawer(
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
+                AppScreen.drawerStructure.forEach { section ->
 
-                // Send SMS
-                NavigationDrawerItem(
-                    label = { Text("Send SMS") },
-                    selected = currentRoute == AppScreen.Send.route,
-                    onClick = {
-                        navController.navigate(AppScreen.Send.route)
-                        scope.launch { drawerState.close() }
-                    }
-                )
-
-                // Inbox Parent
-                NavigationDrawerItem(
-                    label = { Text("Inbox") },
-                    selected = false,
-                    onClick = { inboxExpanded = !inboxExpanded },
-                    icon = {
-                        Icon(
-                            imageVector = if (inboxExpanded)
-                                Icons.Default.ExpandLess
-                            else
-                                Icons.Default.ExpandMore,
-                            contentDescription = null
-                        )
-                    }
-                )
-
-                if (inboxExpanded) {
+                    val isExpanded = expandedSection == section.title
 
                     NavigationDrawerItem(
-                        label = { Text("Inbox V1") },
-                        selected = currentRoute == AppScreen.InboxV1.route,
+                        label = { Text(section.title) },
+                        selected = false,
                         onClick = {
-                            navController.navigate(AppScreen.InboxV1.route)
-                            scope.launch { drawerState.close() }
+                            expandedSection =
+                                if (isExpanded) null else section.title
                         },
-                        modifier = Modifier.padding(start = 24.dp)
+                        icon = {
+                            Icon(
+                                imageVector = if (isExpanded)
+                                    Icons.Default.ExpandLess
+                                else
+                                    Icons.Default.ExpandMore,
+                                contentDescription = null
+                            )
+                        }
                     )
 
-                    NavigationDrawerItem(
-                        label = { Text("Inbox V2") },
-                        selected = currentRoute == AppScreen.InboxV2.route,
-                        onClick = {
-                            navController.navigate(AppScreen.InboxV2.route)
-                            scope.launch { drawerState.close() }
-                        },
-                        modifier = Modifier.padding(start = 24.dp)
-                    )
+                    if (isExpanded) {
+                        section.children.forEach { screen ->
+                            NavigationDrawerItem(
+                                label = { Text(screen.title) },
+                                selected = currentRoute == screen.route,
+                                onClick = {
+                                    navController.navigate(screen.route)
+                                    scope.launch { drawerState.close() }
+                                },
+                                modifier = Modifier.padding(start = 24.dp)
+                            )
+                        }
+                    }
                 }
             }
         }

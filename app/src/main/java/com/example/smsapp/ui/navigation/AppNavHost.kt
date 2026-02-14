@@ -16,10 +16,10 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AppScreen.Send.route
+        startDestination = AppScreen.SendV1.route
     ) {
 
-        composable(AppScreen.Send.route) {
+        composable(AppScreen.SendV1.route) {
             SmsScreen(openDrawer = openDrawer)
         }
 
