@@ -123,3 +123,7 @@ topBar nice colours
 1.1.7
 
 topBar no crash
+
+1.1.8
+
+topBar nice

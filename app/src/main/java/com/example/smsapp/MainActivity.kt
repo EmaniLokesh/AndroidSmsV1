@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,6 +27,13 @@ import com.example.smsapp.ui.SmsScreen
 import com.example.smsapp.ui.inbox.v1.InboxScreenV1
 import com.example.smsapp.ui.inbox.v2.InboxScreenV2
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     private val requestPermissionLauncher =
@@ -54,6 +62,21 @@ class MainActivity : ComponentActivity() {
                             drawerState = drawerState,
                             drawerContent = {
                                 ModalDrawerSheet {
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(MaterialTheme.colorScheme.primary)
+                                            .padding(24.dp)
+                                    ) {
+                                        Text(
+                                            text = "SMS App",
+                                            style = MaterialTheme.typography.titleLarge,
+                                            color = MaterialTheme.colorScheme.onPrimary
+                                        )
+                                    }
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
                                     val currentBackStackEntry by navController.currentBackStackEntryAsState()
                                     val currentRoute = currentBackStackEntry?.destination?.route ?: ""
 
