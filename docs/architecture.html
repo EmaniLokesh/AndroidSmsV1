@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Architecture Overview</title>
+</head>
+<body>
+    <h1>Architecture Overview</h1>
+    <p>The app follows layered architecture:</p>
+    <pre>
+MainActivity
+   → AppDrawer
+      → AppNavHost
+         → Screens
+            → ViewModel
+               → Repository
+                  → Android SMS Content Provider
+    </pre>
+    <p>Each layer has a single responsibility and avoids business logic in UI.</p>
+</body>
+</html>

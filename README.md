@@ -147,3 +147,6 @@ to
 
 It serves as a structured example of modern Android development using
 Jetpack Compose.
+
+
+Docs added
