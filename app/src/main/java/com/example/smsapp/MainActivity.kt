@@ -15,9 +15,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.navigation.compose.rememberNavController
+
+
+import androidx.navigation.compose.*
+import androidx.compose.material3.*
+import com.example.smsapp.ui.InboxScreen
+import com.example.smsapp.ui.SmsScreen
+
 
 class MainActivity : ComponentActivity() {
-
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -30,17 +37,35 @@ class MainActivity : ComponentActivity() {
 
         requestSmsPermission()
 
-        setContent {
-            MaterialTheme(
-                colorScheme = if (android.os.Build.VERSION.SDK_INT >= 31) {
-                    dynamicLightColorScheme(this)
-                } else {
-                    lightColorScheme()
+                setContent {
+
+                    MaterialTheme {
+
+                        val navController = rememberNavController()
+
+                        NavHost(
+                            navController = navController,
+                            startDestination = "send"
+                        ) {
+
+                            composable("send") {
+                                SmsScreen(
+                                    goToInbox = {
+                                        navController.navigate("inbox")
+                                    }
+                                )
+                            }
+
+                            composable("inbox") {
+                                InboxScreen(
+                                    goBack = {
+                                        navController.popBackStack()
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
-            ) {
-                SmsScreen()
-            }
-        }
     }
 
     private fun requestSmsPermission() {
@@ -50,80 +75,6 @@ class MainActivity : ComponentActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SmsScreen() {
-
-    var phoneNumber by remember { mutableStateOf("") }
-    var message by remember { mutableStateOf("") }
-    val context = LocalContext.current
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("SMS Sender") }
-            )
-        }
-    ) { paddingValues ->
-
-        Column(
-            modifier = Modifier
-                .padding(paddingValues)
-                .padding(16.dp)
-                .fillMaxSize()
-        ) {
-
-            OutlinedTextField(
-                value = phoneNumber,
-                onValueChange = { phoneNumber = it },
-                label = { Text("Phone Number") },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = message,
-                onValueChange = { message = it },
-                label = { Text("Message") },
-                modifier = Modifier.fillMaxWidth(),
-                maxLines = 4
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Button(
-                onClick = {
-                    try {
-                        val smsManager = SmsManager.getDefault()
-                        smsManager.sendTextMessage(
-                            phoneNumber,
-                            null,
-                            message,
-                            null,
-                            null
-                        )
-                        Toast.makeText(
-                            context,
-                            "SMS Sent Successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            context,
-                            "Failed to Send SMS",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Send SMS")
-            }
         }
     }
 }

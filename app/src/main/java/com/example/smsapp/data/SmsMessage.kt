@@ -1,4 +1,7 @@
 package com.example.smsapp.data
 
-class SmsMessage {
-}
+data class SmsMessage(
+    val address: String,
+    val body: String,
+    val date: String
+)

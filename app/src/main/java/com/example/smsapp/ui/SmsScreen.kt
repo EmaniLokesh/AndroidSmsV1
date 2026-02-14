@@ -10,8 +10,10 @@ import com.example.smsapp.viewmodel.SmsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SmsScreen(viewModel: SmsViewModel = viewModel()) {
-
+fun SmsScreen(
+    viewModel: SmsViewModel = viewModel(),
+    goToInbox: () -> Unit
+) {
     val state by viewModel.uiState.collectAsState()
 
     Scaffold(
@@ -68,6 +70,15 @@ fun SmsScreen(viewModel: SmsViewModel = viewModel()) {
                     text = it,
                     color = MaterialTheme.colorScheme.primary
                 )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            OutlinedButton(
+                onClick = goToInbox,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Open Inbox")
             }
         }
     }

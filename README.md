@@ -99,3 +99,7 @@ Add to `AndroidManifest.xml`:
 1.1.1
 
 send sms perfect
+
+1.1.2
+
+read sms perfect
