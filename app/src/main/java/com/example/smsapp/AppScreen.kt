@@ -7,6 +7,8 @@ sealed class AppScreen(
     // Send Screens
     object SendV1 : AppScreen("send_v1", "Send V1")
     object SendV2 : AppScreen("send_v2", "Send V2")
+    object SendV3 : AppScreen("send_v3", "Send V3")
+    object SendV4 : AppScreen("send_v4", "Send V4")
 
     // Inbox Screens
     object InboxV1 : AppScreen("inbox_v1", "Inbox V1")
@@ -28,7 +30,7 @@ sealed class AppScreen(
 
                 DrawerSection(
                     title = "Send",
-                    children = listOf(SendV1, SendV2)
+                    children = listOf(SendV1, SendV2, SendV3, SendV4)
                 ),
 
                 DrawerSection(
