@@ -12,7 +12,7 @@ import com.example.smsapp.data.SmsMessage
 import com.example.smsapp.ui.common.SmartTimeFormatter
 
 @Composable
-fun IncomingMessageTextV4(
+fun IncomingMessageTextV5(
     sms: SmsMessage,
     modifier: Modifier = Modifier
 ) {
@@ -28,7 +28,7 @@ fun IncomingMessageTextV4(
         Spacer(Modifier.height(8.dp))
 
         Text(
-            SmartTimeFormatter.format(sms.date),
+            SmartTimeFormatter.format(sms.date.toLong()),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

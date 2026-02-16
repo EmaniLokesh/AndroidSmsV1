@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.example.smsapp.data.SmsMessage
 
 @Composable
-fun IncomingMessageRowV4(
+fun IncomingMessageRowV5(
     sms: SmsMessage,
     onOpenClick: (SmsMessage) -> Unit
 ) {
@@ -21,11 +21,11 @@ fun IncomingMessageRowV4(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        IncomingMessageTextV4(
+        IncomingMessageTextV5(
             sms = sms,
             modifier = Modifier.weight(1f)
         )
 
-        IncomingMessageActionsV4(sms, onOpenClick)
+        IncomingMessageActionsV5(sms, onOpenClick)
     }
 }

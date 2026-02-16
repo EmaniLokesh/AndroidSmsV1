@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import com.example.smsapp.ui.incoming.common.IncomingTimeGroup
 
 @Composable
-fun IncomingTabsV4(
+fun IncomingTabsV5(
     selected: IncomingTimeGroup,
     counts: Map<IncomingTimeGroup, Int>,
     onSelected: (IncomingTimeGroup) -> Unit

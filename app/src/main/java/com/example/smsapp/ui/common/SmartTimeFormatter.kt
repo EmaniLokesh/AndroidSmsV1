@@ -5,10 +5,9 @@ import java.util.*
 
 object SmartTimeFormatter {
 
-    fun format(timestamp: String): String {
+    fun format(timestamp: Long): String {
 
-        val time = timestamp.toLongOrNull() ?: return ""
-        val msg = Calendar.getInstance().apply { timeInMillis = time }
+        val msg = Calendar.getInstance().apply { timeInMillis = timestamp }
         val now = Calendar.getInstance()
 
         val yesterday = now.clone() as Calendar

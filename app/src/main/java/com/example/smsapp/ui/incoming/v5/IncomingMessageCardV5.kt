@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.smsapp.data.SmsMessage
 
 @Composable
-fun IncomingMessageCardV4(
+fun IncomingMessageCardV5(
     sms: SmsMessage,
     onOpenClick: (SmsMessage) -> Unit
 ) {
@@ -26,6 +26,6 @@ fun IncomingMessageCardV4(
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        IncomingMessageRowV4(sms, onOpenClick)
+        IncomingMessageRowV5(sms, onOpenClick)
     }
 }

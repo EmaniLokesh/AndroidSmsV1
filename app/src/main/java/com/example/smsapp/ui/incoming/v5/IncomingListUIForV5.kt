@@ -8,7 +8,7 @@ import com.example.smsapp.data.SmsMessage
 import com.example.smsapp.ui.incoming.common.IncomingEmptyState
 
 @Composable
-fun IncomingListUIForV4(
+fun IncomingListUIForV5(
     messages: List<SmsMessage>,
     modifier: Modifier = Modifier,
     onOpenClick: (SmsMessage) -> Unit
@@ -21,7 +21,7 @@ fun IncomingListUIForV4(
 
     LazyColumn(modifier = modifier) {
         items(messages) { sms ->
-            IncomingMessageCardV4(sms, onOpenClick)
+            IncomingMessageCardV5(sms, onOpenClick)
         }
     }
 }
