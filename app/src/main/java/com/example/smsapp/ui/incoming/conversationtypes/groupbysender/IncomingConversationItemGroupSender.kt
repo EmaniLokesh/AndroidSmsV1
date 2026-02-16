@@ -1,4 +1,4 @@
-package com.example.smsapp.ui.incoming.v6
+package com.example.smsapp.ui.incoming.conversationtypes.groupbysender
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,11 +13,10 @@ import com.example.smsapp.ui.common.SmartTimeFormatter
 import com.example.smsapp.ui.incoming.v5.model.IncomingConversation
 
 @Composable
-fun IncomingConversationItemV6(
+fun IncomingConversationItemGroupBySender(
     convo: IncomingConversation,
     onOpenConversation: (String) -> Unit
 ) {
-
     Card(
         modifier = Modifier
             .padding(horizontal = 12.dp, vertical = 6.dp)
@@ -27,7 +26,6 @@ fun IncomingConversationItemV6(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
-
         Row(
             modifier = Modifier
                 .padding(14.dp)
@@ -53,7 +51,6 @@ fun IncomingConversationItemV6(
             }
 
             Column(horizontalAlignment = Alignment.End) {
-
                 Text(
                     text = "${convo.count}",
                     style = MaterialTheme.typography.labelMedium,
